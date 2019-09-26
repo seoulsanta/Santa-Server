@@ -5,6 +5,9 @@ const router = express.Router();
 // mountainController
 const mountainController = require('../controller/mountainController');
 
+// 추천 검색어
+router.get('/recommend', mountainController.getRecommend);
+
 // 모든 산 보기
 router.get('/:mountain_idx', mountainController.getMountain);
 

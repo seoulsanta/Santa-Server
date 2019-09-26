@@ -25,7 +25,17 @@ async function getMountainSearch(req, res) {
     }
 }
 
+async function getRecommend(req, res) {
+    try {
+        response('Success', ["북한산", "인왕산", "우면산"], res, 200);
+    } catch (error) {
+        console.log(error);
+        errorResponse(error.message, res, error.statusCode);
+    }
+}
+
 module.exports = {
     getMountain,
     getMountainSearch,
+    getRecommend,
 };
