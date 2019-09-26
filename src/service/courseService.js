@@ -17,6 +17,13 @@ async function getCourse(course_idx) {
     return res;
 }
 
+async function getCourseLine(course_idx) {
+    let res = await courseDao.selectCourseLine(course_idx);
+
+    return res;
+}
+
 module.exports = {
     getCourse,
+    getCourseLine,
 };

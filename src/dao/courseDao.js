@@ -25,7 +25,21 @@ async function selectMountainByIdx(mountain_idx) {
     return result
 }
 
+async function selectCourseLine(course_idx) {
+    const sql = `
+    SELECT longitude, latitude
+    FROM Santa.COURSE_LINE
+    WHERE course_idx = (?)
+    ORDER BY course_line_idx ASC;
+    `;
+
+    const result = await mysql.query(sql, [course_idx]);
+
+    return result
+}
+
 module.exports = {
     selectCourse,
     selectMountainByIdx,
+    selectCourseLine,
 };
