@@ -1,13 +1,12 @@
 const mountainDao = require('../dao/mountainDao');
 
-async function getMountain() {
+async function getMountain(mountain_idx) {
     // get mountain info (idx, name)
-    let res = await mountainDao.selectMountain();
-    
-    for (let i=0; i<res.length; i++){
-        // get course info by mountainIdx (idx, name, img, time, degree)
-        res[i].course = await mountainDao.selectCourseByMountainIdx(res[i].mountain_idx, true);
-    }
+    let res = await mountainDao.selectMountain(mountain_idx);
+
+    res = res[0]
+
+    res.course = await mountainDao.selectCourseByMountainIdx(res.mountain_idx, true);
     
     return res;
 }

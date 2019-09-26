@@ -1,13 +1,14 @@
 const mysql = require('../library/mysql');
 const s3Location = require('../../config/s3Config').s3Location;
 
-async function selectMountain() {
+async function selectMountain(mountain_idx) {
     const sql = `
     SELECT mountain_idx, name as mountain_name
-    FROM Santa.MOUNTAIN;
+    FROM Santa.MOUNTAIN
+    WHERE mountain_idx = (?);
     `;
 
-    const result = await mysql.query(sql, []);
+    const result = await mysql.query(sql, [mountain_idx]);
 
     return result
 }

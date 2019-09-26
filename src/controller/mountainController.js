@@ -3,7 +3,7 @@ const { response, errorResponse } = require('../library/response');
 
 async function getMountain(req, res) {
     try {
-        const result = await mountainService.getMountain(); 
+        const result = await mountainService.getMountain(req.params.mountain_idx); 
         response('Success', result, res, 200);
     } catch (error) {
         console.log(error);
