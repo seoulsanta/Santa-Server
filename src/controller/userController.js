@@ -34,8 +34,21 @@ async function getBadge(req, res) {
         errorResponse(error.message, res, error.statusCode);
     }
 }
+
+async function postBadge(req, res) {
+    try {
+        const { course_idx } = req.body;
+        const result = await userService.postBadge(getUserIdxFromJwt(req.headers.authorization), course_idx); 
+        response('Success', result, res, 200);
+    } catch (error) {
+        console.log(error);
+        errorResponse(error.message, res, error.statusCode);
+    }
+}
+
 module.exports = {
     getMypage,
     putMypage,
     getBadge,
+    postBadge,
 };

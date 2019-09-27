@@ -26,8 +26,14 @@ async function getBadge(user_idx) {
     return res;
 }
 
+
+async function postBadge(user_idx, course_idx) {
+    await userDao.insertBadge(user_idx, course_idx);
+}
+
 module.exports = {
     getMypage,
     putMypage,
-    getBadge
+    getBadge,
+    postBadge,
 };

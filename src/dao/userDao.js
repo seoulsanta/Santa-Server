@@ -55,10 +55,22 @@ async function updateUser(user_idx, name, img) {
     await mysql.query(sql, [name, img, user_idx]);
 }
 
+async function insertBadge(user_idx, course_idx) {
+    const sql = `
+    INSERT INTO BADGE 
+    (user_idx, course_idx)
+    VALUES
+    (?, ?);
+    `;
+
+    await mysql.query(sql, [user_idx, course_idx]);
+}
+
 module.exports = {
     selectUserByIdx,
     selectBadgeByUserIdx,
     selectCourseNameByIdx,
     selectCourseCnt,
     updateUser,
+    insertBadge,
 };

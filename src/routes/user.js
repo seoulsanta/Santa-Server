@@ -17,6 +17,6 @@ router.put('/mypage',upload.single('img'), userController.putMypage);
 router.get('/badge', userController.getBadge);
 
 // 뱃지 등록
-// router.post('/badge', userController.postBadge);
+router.post('/badge', userController.postBadge);
 
 module.exports = router;
