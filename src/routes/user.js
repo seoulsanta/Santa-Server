@@ -12,7 +12,7 @@ router.get('/mypage', userController.getMypage);
 // router.put('/mypage', userController.putMypage);
 
 // 뱃지 조회
-// router.get('/badge', userController.getBadge);
+router.get('/badge', userController.getBadge);
 
 // 뱃지 등록
 // router.post('/badge', userController.postBadge);

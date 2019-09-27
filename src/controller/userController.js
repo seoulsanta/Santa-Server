@@ -12,6 +12,17 @@ async function getMypage(req, res) {
     }
 }
 
+async function getBadge(req, res) {
+    try {
+        const result = await userService.getBadge(getUserIdxFromJwt(req.headers.authorization)); 
+        response('Success', result, res, 200);
+    } catch (error) {
+        console.log(error);
+        errorResponse(error.message, res, error.statusCode);
+    }
+}
+
 module.exports = {
     getMypage,
+    getBadge,
 };
