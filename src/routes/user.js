@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
+const upload = require('../library/s3Bucket').getMulter('seoulsanta');
+
 // userController
 const userController = require('../controller/userController');
 
@@ -9,7 +11,7 @@ const userController = require('../controller/userController');
 router.get('/mypage', userController.getMypage);
 
 // 마이페이지 수정
-// router.put('/mypage', userController.putMypage);
+router.put('/mypage',upload.single('img'), userController.putMypage);
 
 // 뱃지 조회
 router.get('/badge', userController.getBadge);

@@ -6,6 +6,10 @@ async function getMypage(user_idx) {
     return res;
 }
 
+async function putMypage(user_idx, name, img) {
+    await userDao.updateUser(user_idx, name, img);
+}
+
 async function getBadge(user_idx) {
     let badge = await userDao.selectBadgeByUserIdx(user_idx);
 
@@ -18,11 +22,12 @@ async function getBadge(user_idx) {
     res.count = badge.length;
     res.total = await userDao.selectCourseCnt();
     res.badge = badge;
-    
+
     return res;
 }
 
 module.exports = {
     getMypage,
+    putMypage,
     getBadge
 };

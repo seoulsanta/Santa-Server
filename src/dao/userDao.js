@@ -45,9 +45,20 @@ async function selectCourseCnt() {
     return result[0].cnt;
 }
 
+async function updateUser(user_idx, name, img) {
+    const sql = `
+    UPDATE Santa.USER
+    SET name = (?), img = (?)
+    WHERE user_idx = (?);
+    `;
+
+    await mysql.query(sql, [name, img, user_idx]);
+}
+
 module.exports = {
     selectUserByIdx,
     selectBadgeByUserIdx,
     selectCourseNameByIdx,
     selectCourseCnt,
+    updateUser,
 };
