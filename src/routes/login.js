@@ -6,9 +6,9 @@ const router = express.Router();
 const loginController = require('../controller/loginController');
 
 // 카카오 로그인
-router.get('/kakao', loginController.postKakao);
+router.post('/kakao', loginController.postKakao);
 
 // 네이버 로그인
-router.get('/naver', loginController.postNaver);
+router.post('/naver', loginController.postNaver);
 
 module.exports = router;

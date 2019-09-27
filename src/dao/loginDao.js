@@ -13,19 +13,27 @@ async function selectUserIdxById(id) {
     return result
 }
 
-async function insertUser(id, name, img) {
-    const sql = `
+async function insertUserTransaction(id, name, img) {
+    const sql1 = `
     INSERT INTO USER 
-    (id, name, img, rfrs_token)
+    (id, name, img)
     VALUES
     (?, ?, ?);
     `;
 
-    const refreshToken = getRefreshToken(newUserIdx);
+    const sql2 = `
+    UPDATE USER 
+    SET rfrs_token = ?
+    WHERE user_idx = ?
+    `;
+  
+    await mysql.transaction(async (connection) => {
+        const newUser = await connection.query(sql1, [id, name, img]);
 
-    const result = await mysql.query(sql, [id, name, img, refreshToken]);
-
-    return result
+        const refreshToken = getRefreshToken(newUser.insertId);
+        
+        await connection.query(sql2, [refreshToken, newUser.insertId]);
+    });
 }
 
 async function updateRefreshToken(user_idx, rfrs_token) {
@@ -42,6 +50,6 @@ async function updateRefreshToken(user_idx, rfrs_token) {
 
 module.exports = {
     selectUserIdxById,
-    insertUser,
+    insertUserTransaction,
     updateRefreshToken,
 };

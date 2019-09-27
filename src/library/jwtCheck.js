@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const { errorResponse } = require('../library/response');
-const { jwtKey, jwtOptions } = require('../../config/jwtConfig');
+const { jwtKey, jwtOptions, refreshOptions } = require('../../config/jwtConfig');
 
 function getUserIdxFromJwt(authorization) {
   if (!authorization) return undefined;
@@ -42,9 +42,21 @@ function verify(authorization) {
   return decoded;
 }
 
+// refresh
+function getRefreshToken(userIdx) {
+  const payload = {
+    userIdx,
+  };
+
+  const token = jwt.sign(payload, jwtKey, refreshOptions);
+
+  return token;
+}
+
 module.exports = {
   jwtCheck,
   sign,
   verify,
   getUserIdxFromJwt,
+  getRefreshToken,
 };
