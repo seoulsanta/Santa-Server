@@ -17,7 +17,14 @@ async function putMypage(req, res) {
         const { file } = req;
         const { name } = req.body;
         
-        const result = await userService.putMypage(getUserIdxFromJwt(req.headers.authorization), name, file.location); 
+        let result;
+        
+        if (file==undefined) {
+            result = await userService.putMypage(getUserIdxFromJwt(req.headers.authorization), name, null); 
+        } else {
+            result = await userService.putMypage(getUserIdxFromJwt(req.headers.authorization), name, file.location); 
+        }
+        
         response('Success', result, res, 200);
     } catch (error) {
         console.log(error);
