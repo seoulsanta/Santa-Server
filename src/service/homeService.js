@@ -3,6 +3,12 @@ const homeDao = require('../dao/homeDao');
 async function getHome() {
     // TODO getWeather 수정
     let res = await homeDao.getWeather();
+
+    const resDust = await homeDao.getDust();
+
+    res.dust = resDust.main;
+    res.dust_num = resDust.num;
+    res.dust_text = resDust.text;
     
     themes = await homeDao.selectTheme();
 
