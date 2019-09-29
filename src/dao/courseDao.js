@@ -15,7 +15,7 @@ async function selectCourse(course_idx) {
 
 async function selectMountainByIdx(mountain_idx) {
     const sql = `
-    SELECT name, content, img
+    SELECT name, content, img_square as img
     FROM Santa.MOUNTAIN
     WHERE mountain_idx = (?);
     `;
