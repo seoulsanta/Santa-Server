@@ -14,7 +14,9 @@ async function getBadge(user_idx) {
     let badge = await userDao.selectBadgeByUserIdx(user_idx);
 
     for (let i=0; i<badge.length; i++){
-        badge[i].course_name = await userDao.selectCourseNameByIdx(badge[i].course_idx);
+        const course = await userDao.selectCourseNameByIdx(badge[i].course_idx);
+        badge[i].course_name = course.name
+        badge[i].degree = course.degree
     }
 
     let res = {};

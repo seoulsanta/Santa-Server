@@ -24,14 +24,14 @@ async function selectBadgeByUserIdx(user_idx) {
 
 async function selectCourseNameByIdx(course_idx) {
     const sql = `
-    SELECT name
+    SELECT name, degree
     FROM Santa.COURSE
     WHERE course_idx = (?);
     `;
 
     const result = await mysql.query(sql, [course_idx]);
 
-    return result[0].name;
+    return result[0];
 }
 
 async function selectCourseCnt() {
