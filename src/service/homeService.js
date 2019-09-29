@@ -1,5 +1,12 @@
 const homeDao = require('../dao/homeDao');
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 async function getHome() {
     // TODO getWeather 수정
     let res = await homeDao.getWeather();
@@ -24,10 +31,11 @@ async function getHome() {
             one.mountain_img = tmp[0].img;
             courses.push(one);
         }
+        shuffleArray(courses);
         themes[i].course = courses;
     }
     
-    res.theme = themes
+    res.theme = themes;
     return res;
 }
 
