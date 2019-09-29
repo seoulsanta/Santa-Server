@@ -1,6 +1,6 @@
 const mysql = require('../library/mysql');
 const rp = require('request-promise-native');
-var parser = require('xml2json');
+var parser = require('xml2js');
 const appid = require('../../config/weatherApi').appid;
 const dust_key = require('../../config/weatherApi').dust_key;
 
@@ -44,7 +44,10 @@ async function getDust() {
         }
     };
 
-    const dust_num = JSON.parse(parser.toJson(await rp(options))).response.body.items.item.pm10Value;
+    let dust_num = await parser.parseStringPromise(await rp(options));
+    dust_num = dust_num.response.body[0].items[0].item[0].pm10Value[0];
+
+    
 
     if (dust_num <= 15)
         return {main:'최고', num: dust_num, text:'즐거운 등산하세요!'};
@@ -59,9 +62,9 @@ async function getDust() {
     else if (dust_num <=100)
         return {main:'상당히 나쁨', num: dust_num, text:'즐거운 등산하세요!'};
     else if (dust_num <=150)
-        return {main:'매우 나쁨', num: dust_num, text:'즐거운 실외 활동을 자제하세요 :)!'};
+        return {main:'매우 나쁨', num: dust_num, text:'실외 활동을 자제하세요 :)!'};
     else
-        return {main:'최악', num: dust_num, text:'즐거운 실외 활동을 자제하세요 :)!'};
+        return {main:'최악', num: dust_num, text:'실외 활동을 자제하세요 :)!'};
 }
 
 async function selectTheme() {
