@@ -46,13 +46,25 @@ async function selectCourseCnt() {
 }
 
 async function updateUser(user_idx, name, img) {
-    const sql = `
-    UPDATE Santa.USER
-    SET name = (?), img = (?)
-    WHERE user_idx = (?);
-    `;
+    if (img==null) {
+        const sql = `
+        UPDATE Santa.USER
+        SET name = (?)
+        WHERE user_idx = (?);
+        `;
 
-    await mysql.query(sql, [name, img, user_idx]);
+        await mysql.query(sql, [name, user_idx]);
+
+    } else {
+        const sql = `
+        UPDATE Santa.USER
+        SET name = (?), img = (?)
+        WHERE user_idx = (?);
+        `;
+
+        await mysql.query(sql, [name, img, user_idx]);
+        
+    }
 }
 
 async function insertBadge(user_idx, course_idx) {
